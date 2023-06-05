@@ -6,12 +6,8 @@ const app = express();
 
 app.use(express.json({ extended: false }));
 
-// Configurar CORS
-const corsOptions = {
-  origin: "https://arsbancocentral.org.do",
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-app.use(cors(corsOptions));
+app.use(cors()); // Utiliza el middleware cors
+
 
 app.use("/api", routes);
 
