@@ -2,7 +2,13 @@ import { pool } from "../../db.js";
 
 export const getCentros = async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM centros c LEFT OUTER JOIN centros_tipos ct ON (c.id_tipo = ct.codigo) LEFT OUTER JOIN centros_direcciones cd ON (cd.id_centro = c.codigo)");
+const [rows] = await pool.query(`
+    SELECT * 
+    FROM centros c 
+    LEFT OUTER JOIN centros_tipos ct ON (c.id_tipo = ct.codigo) 
+    LEFT OUTER JOIN centros_direcciones cd ON (cd.id_centro = c.codigo)
+    ORDER BY c.nombre ASC
+`);
     res.json(rows);
   } catch (error) {
     return res.status(500).json({ messages: error });
